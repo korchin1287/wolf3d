@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 18:43:32 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/14 17:32:22 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/17 18:52:08 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -545,26 +545,26 @@ static int		ft_key(int key, t_data *data)
 
 void	add_textures(t_data *data)
 {
-	char	*tex1 = "../textures/greystone.xpm";
-	char	*tex2 = "../textures/colorstone.xpm";
-	char	*tex3 = "../textures/bluestone.xpm";
-	char	*tex4 = "../textures/eagle.xpm";
+	char	*tex_n = "../textures/greystone.xpm";
+	char	*tex_s = "../textures/colorstone.xpm";
+	char	*tex_e = "../textures/bluestone.xpm";
+	char	*tex_w = "../textures/eagle.xpm";
 
 	data->tex_n = malloc(sizeof(t_img));
 	data->tex_s = malloc(sizeof(t_img));
 	data->tex_e = malloc(sizeof(t_img));
 	data->tex_w = malloc(sizeof(t_img));
 	
-	data->tex_n->img = mlx_xpm_file_to_image(data->mlx, tex1, &data->tex_n->width, &data->tex_n->height);
+	data->tex_n->img = mlx_xpm_file_to_image(data->mlx, tex_n, &data->tex_n->width, &data->tex_n->height);
 	data->tex_n->addr = mlx_get_data_addr(data->tex_n->img, &data->tex_n->b_p_p, &data->tex_n->l_l, &data->tex_n->endian);
 	
-	data->tex_s->img = mlx_xpm_file_to_image(data->mlx, tex2, &data->tex_s->width, &data->tex_s->height);
+	data->tex_s->img = mlx_xpm_file_to_image(data->mlx, tex_s, &data->tex_s->width, &data->tex_s->height);
 	data->tex_s->addr = mlx_get_data_addr(data->tex_s->img, &data->tex_s->b_p_p, &data->tex_s->l_l, &data->tex_s->endian);
 	
-	data->tex_e->img = mlx_xpm_file_to_image(data->mlx, tex3, &data->tex_e->width, &data->tex_e->height);
+	data->tex_e->img = mlx_xpm_file_to_image(data->mlx, tex_e, &data->tex_e->width, &data->tex_e->height);
 	data->tex_e->addr = mlx_get_data_addr(data->tex_e->img, &data->tex_e->b_p_p, &data->tex_e->l_l, &data->tex_e->endian);
 	
-	data->tex_w->img = mlx_xpm_file_to_image(data->mlx, tex4, &data->tex_w->width, &data->tex_w->height);
+	data->tex_w->img = mlx_xpm_file_to_image(data->mlx, tex_w, &data->tex_w->width, &data->tex_w->height);
 	data->tex_w->addr = mlx_get_data_addr(data->tex_w->img, &data->tex_w->b_p_p, &data->tex_w->l_l, &data->tex_w->endian);
 }
 

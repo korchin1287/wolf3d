@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 18:43:27 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/14 18:18:18 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/17 18:52:04 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,6 @@ int		width = 640;
 int		height = 480;
 
 double	buffer[buffer_size];
-
-//int	n = 3;
-
-typedef struct	s_list
-{
-	char			*content;
-	struct s_list	*next;
-}				t_list;
-
 
 typedef struct	s_img
 {
@@ -139,6 +130,6 @@ typedef struct	s_data
 	double	delta_line_h;
 }				t_data;
 
-int	main(int ac, char **av);
+int	main(int ac, char **av);	
 
 # endif
