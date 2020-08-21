@@ -5,82 +5,95 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/20 19:18:40 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/20 19:43:09 by nofloren         ###   ########.fr       */
+/*   Created: 2020/08/21 16:31:33 by nofloren          #+#    #+#             */
+/*   Updated: 2020/08/21 20:11:42 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d3.h"
+#include "cube3d.h"
 
-int			ft_check_map_line(char c)
+int		ft_check_flag(t_parser *pars)
 {
-	if (c == '0' || c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == '2' || c == ' ' || c == '1')
+	if (pars->r == 1 && pars->no == 1 && pars->so == 1 && pars->we == 1 &&
+		pars->ea == 1 && pars->s == 1 && pars->f == 1 && pars->c == 1)
 		return (1);
 	else
 		return (0);
 }
 
-char	*ft_addchars(char *line, char c, int count)
+int		is_flag(char c)
 {
-	char	*tmp;
-	int		len;
-	
-	while (count > 0)
-	{
-		len = ft_strlen(line);
-		tmp = line;
-		line = (char*)malloc(len + 2);
-		ft_memcpy(line, tmp, len);
-		line[len] = c;
-		line[len + 1] = '\0';
-		free(tmp);
-		count--;
-	}
-	return (line);
+	if (c == 'R' || c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == 'F' ||
+		c == 'C' || c == 'O' || c == 'A')
+		return (1);
+	else
+		return (0);
 }
 
-void		ft_check_map(t_parser *pars)
+void	init_flag(t_parser *pars)
 {
-	int i;
-	int j;
+	pars->width = 0;
+	pars->height = 0;
+	pars->tex_n = NULL;
+	pars->tex_s = NULL;
+	pars->tex_e = NULL;
+	pars->tex_w = NULL;
+	pars->sprite = NULL;
+	pars->color_floor = 0;
+	pars->color_roof = 0;
+	pars->r = 0;
+	pars->no = 0;
+	pars->so = 0;
+	pars->we = 0;
+	pars->ea = 0;
+	pars->s = 0;
+	pars->f = 0;
+	pars->c = 0;
+}
 
-	i = 0;
-	while (pars->world_map[i])
+void	parser_2(t_parser *pars)
+{
+	if (pars->str[pars->i][pars->j] == 'R')
+		ft_r(pars);
+	else if (pars->str[pars->i][pars->j] == 'N' && pars->str[pars->i]
+		[pars->j + 1] == 'O')
+		ft_n(pars);
+	else if (pars->str[pars->i][pars->j] == 'S' && pars->str[pars->i]
+		[pars->j + 1] == 'O')
+		ft_s(pars);
+	else if (pars->str[pars->i][pars->j] == 'W' && pars->str[pars->i]
+		[pars->j + 1] == 'E')
+		ft_w(pars);
+	else if (pars->str[pars->i][pars->j] == 'E' && pars->str[pars->i]
+		[pars->j + 1] == 'A')
+		ft_e(pars);
+	else if (pars->str[pars->i][pars->j] == 'S' && pars->str[pars->i]
+		[pars->j + 1] == ' ')
+		ft_sprite(pars);
+	else if (pars->str[pars->i][pars->j] == 'F' || pars->str[pars->i]
+		[pars->j] == 'C')
+		ft_floor_or_roof(pars, pars->str[pars->i][pars->j]);
+}
+
+void	parser1(t_parser *pars)
+{
+	init_flag(pars);
+	pars->i = 0;
+	while (pars->str[pars->i])
 	{
-		j = 0;
-		while (pars->world_map[i][j] != '\0')
+		pars->j = 0;
+		while (pars->str[pars->i][pars->j] != '\0')
 		{
-			if (!(ft_check_map_line(pars->world_map[i][j])))
-				ft_error(6);
-			j++;		
+			if (pars->str[pars->i][pars->j] == ' ')
+				(pars->j)++;
+			else if (is_flag(pars->str[pars->i][pars->j]))
+				parser_2(pars);
+			break ;
 		}
-		i++;
+		(pars->i)++;
+		if (ft_check_flag(pars))
+			break ;
 	}
-	ft_check_map_side(pars);
-}
-
-void		gave_space1(t_parser *pars)
-{
-	int	i;
-	int j;
-	int	x;
-
-	i = 0;
-	x = 0;
-	while (pars->world_map[i])
-	{
-		j = 0;
-		while (pars->world_map[i][j] != '\0')
-			j++;
-		if (j > x)
-			x = j;
-		i++;
-	}
-	i = 0;
-	while (pars->world_map[i])
-	{
-		pars->world_map[i] = ft_addchars(pars->world_map[i], ' ', (x - ft_strlen(pars->world_map[i])));
-		i++;
-	}
-	ft_check_map(pars);
+	if (!(ft_check_flag(pars)))
+		ft_error(4);
 }

@@ -5,88 +5,82 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/20 20:07:50 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/20 20:10:51 by nofloren         ###   ########.fr       */
+/*   Created: 2020/08/21 16:24:23 by nofloren          #+#    #+#             */
+/*   Updated: 2020/08/21 20:11:39 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d3.h"
+#include "cube3d.h"
 
-int			ft_check_flag(t_parser *pars)
+void		ft_free(t_list **map)
 {
-	if (pars->r == 1 && pars->no == 1 && pars->so == 1 && pars->we == 1 && pars->ea == 1 && pars->s == 1 && pars->f == 1 && pars->c == 1)
-		return (1);
-	else
-		return (0);
+	t_list *dst;
+
+	while (*map)
+	{
+		dst = *map;
+		*map = dst->next;
+		free(dst);
+	}
+	*map = NULL;
 }
 
-void		parser_2(t_parser *pars)
+char		**make_map(t_list **map, int size)
 {
-	if (pars->str[pars->i][pars->j] == 'R')
-		ft_r(pars);
-	else if (pars->str[pars->i][pars->j] == 'N' && pars->str[pars->i][pars->j + 1] == 'O')
-		ft_n(pars);
-	else if (pars->str[pars->i][pars->j] == 'S' && pars->str[pars->i][pars->j + 1] == 'O')
-		ft_s(pars);
-	else if (pars->str[pars->i][pars->j] == 'W' && pars->str[pars->i][pars->j + 1] == 'E')
-		ft_w(pars);
-	else if (pars->str[pars->i][pars->j] == 'E' && pars->str[pars->i][pars->j + 1] == 'A')
-		ft_e(pars);
-	else if (pars->str[pars->i][pars->j] == 'S' && pars->str[pars->i][pars->j + 1] == ' ')
-		ft_sprite(pars);
-	else if (pars->str[pars->i][pars->j] == 'F' || pars->str[pars->i][pars->j] == 'C')
-		ft_floor_or_roof(pars, pars->str[pars->i][pars->j]);
+	char	**str;
+	int		i;
+	t_list	*tmp;
+
+	if (!(str = malloc(sizeof(char *) * (size + 1))))
+		ft_error(7);
+	i = 0;
+	tmp = *map;
+	while (tmp)
+	{
+		str[i] = tmp->content;
+		tmp = tmp->next;
+		i++;
+	}
+	str[i] = NULL;
+	return (str);
 }
 
-int	is_flag(char c)
+static void	ft_make_world_map_2(t_parser *pars)
 {
-	if (c == 'R' || c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == 'F' || c == 'C' || c == 'O' || c == 'A')
-		return (1);
-	else
-		return (0);
-	
-}
+	int	i;
 
-void	init_flag(t_parser *pars)
-{
-	pars->width = 0;
-	pars->height = 0;
-	pars->tex_n = NULL;
-	pars->tex_s = NULL;
-	pars->tex_e = NULL;
-	pars->tex_w = NULL;
-	pars->sprite = NULL;
-	pars->color_floor = 0;
-	pars->color_roof = 0;
-	pars->r = 0;
-	pars->no = 0;
-	pars->so = 0;
-	pars->we = 0;
-	pars->ea = 0;
-	pars->s = 0;
-	pars->f = 0;
-	pars->c = 0;
-}
-
-void		parser1(t_parser *pars)
-{
-	init_flag(pars);
-	pars->i = 0;
+	i = 0;
 	while (pars->str[pars->i])
 	{
-		pars->j = 0;
-		while (pars->str[pars->i][pars->j] != '\0')
-		{
-			if (pars->str[pars->i][pars->j] == ' ')
-				(pars->j)++;
-			else if (is_flag(pars->str[pars->i][pars->j]))
-				parser_2(pars);
-			break ;		
-		}
-		(pars->i)++;
-		if (ft_check_flag(pars))
-			break ;
+		pars->world_map[i] = ft_strdup(pars->str[pars->i]);
+		i++;
+		pars->i++;
 	}
-	if (!(ft_check_flag(pars)))
-		ft_error(4);
+	pars->world_map[i] = 0;
+}
+
+void		ft_make_world_map(t_parser *pars, char **argv)
+{
+	int		fd;
+	char	*line;
+	t_list	*map;
+	t_list	*dst;
+
+	fd = open(argv[1], O_RDONLY);
+	get_next_line(fd, &line);
+	dst = ft_lstnew(line);
+	ft_lstadd_back(&map, dst);
+	while (get_next_line(fd, &line))
+		ft_lstadd_back(&map, ft_lstnew(line));
+	ft_lstadd_back(&map, ft_lstnew(line));
+	close(fd);
+	pars->str = make_map(&map, ft_lstsize(map));
+	parser1(pars);
+	while (pars->str[pars->i][0] == '\0')
+		(pars->i)++;
+	if (!(pars->world_map = malloc(sizeof(char*) * ((ft_lstsize(map) - pars->i)
+		+ 1))))
+		ft_error(7);
+	ft_free(&dst);
+	ft_make_world_map_2(pars);
 }

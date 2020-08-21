@@ -1,13 +1,13 @@
 R 640 480 
 
-NO ../textures/bluestone.xpm
-SO ../textures/colorstone.xpm
-WE ../textures/eagle.xpm
-EA ../textures/greystone.xpm
+NO textures/bluestone.xpm
+SO textures/colorstone.xpm
+WE textures/eagle.xpm
+EA textures/greystone.xpm
 
 F   139,0,139 
 C  255,255,0 
-S ../sprite/Tree1.xpm
+S sprite/Tree1.xpm
 
 
 11111111111111111111111111111111    
