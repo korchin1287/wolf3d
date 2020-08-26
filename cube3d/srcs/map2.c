@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 17:04:09 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/21 20:11:26 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/26 17:05:44 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ int		not_space(char c)
 
 void	ft_check_space(t_parser *pars, int num_str, int len_str)
 {
+	if (pars->j == 0)
+		ft_error(6);
+	if (pars->j == len_str)
+		ft_error(6);
+	if (pars->i == 0)
+		ft_error(6);
+	if (pars->i == num_str)
+		ft_error(6);
 	if (pars->j > 0)
 		not_space(pars->world_map[pars->i][pars->j - 1]);
 	if (pars->j < len_str)
@@ -44,7 +52,7 @@ void	ft_check_map_side(t_parser *pars)
 	len_str = ft_strlen(pars->world_map[0]);
 	while (pars->world_map[pars->i])
 		pars->i++;
-	num_str = pars->i;
+	num_str = pars->i - 1;
 	pars->i = 0;
 	while (pars->world_map[pars->i])
 	{

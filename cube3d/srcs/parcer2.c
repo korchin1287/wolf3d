@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:31:33 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/21 20:11:42 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/26 18:45:54 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,14 @@ void	parser1(t_parser *pars)
 		pars->j = 0;
 		while (pars->str[pars->i][pars->j] != '\0')
 		{
-			if (pars->str[pars->i][pars->j] == ' ')
+			// if (pars->str[pars->i][pars->j] != ' ')
+			// 	ft_error(4);
+			while (pars->str[pars->i][pars->j] == ' ')
 				(pars->j)++;
-			else if (is_flag(pars->str[pars->i][pars->j]))
+			if (is_flag(pars->str[pars->i][pars->j]))
 				parser_2(pars);
+			else if (!(is_flag(pars->str[pars->i][pars->j]) &&!(ft_check_flag(pars))))
+				ft_error(4);
 			break ;
 		}
 		(pars->i)++;

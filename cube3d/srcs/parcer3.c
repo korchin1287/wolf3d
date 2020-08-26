@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:35:22 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/21 20:11:45 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/26 18:43:54 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,10 @@ void		ft_r(t_parser *pars)
 		[pars->j] != '\0')
 		pars->j++;
 	pars->height = ft_atoi(&pars->str[pars->i][pars->j]);
+	while (ft_isdigit(pars->str[pars->i][pars->j]))
+		pars->j++;
 	if (pars->width > 0 && pars->height > 0)
 		pars->r++;
 	else
 		ft_error(1);
-	if (pars->width % 2 == 1)
-		pars->width -= 1;
-	if (pars->height % 2 == 1)
-		pars->height -= 1;
-	if (pars->width > 2500)
-		pars->width = 2500;
-	if (pars->height > 1300)
-		pars->height = 1300;
 }

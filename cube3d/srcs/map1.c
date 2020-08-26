@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:45:29 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/21 20:11:23 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/26 16:59:32 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	gave_space1(t_parser *pars)
 		i++;
 	}
 	i = 0;
+	x++;
 	while (pars->world_map[i])
 	{
 		pars->world_map[i] = ft_addchars(pars->world_map[i], ' ',

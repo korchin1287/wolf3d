@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 17:27:02 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/21 20:12:34 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/26 19:07:54 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,14 @@ void	ft_count_coordinate_sprites(t_data *data)
 	}
 }
 
-void	ft_start(t_data *data, t_parser *pars)
+void	ft_start(t_data *data, t_parser *pars, int argc, char **argv)
 {
 	data->buffer = malloc(sizeof(double) * data->width);
 	data->buf_sprite = pars->buf_sprite;
 	ft_count_coordinate_sprites(data);
 	ray_casting(data);
+	if (argc == 3 && !(ft_strncmp("--save", argv[2], 7)))
+		create_bmp(data, pars);
 	mlx_hook(data->win, 2, 0, &ft_key, data);
 	mlx_hook(data->win, 17, 0, &ft_close, data);
 	mlx_loop(data->mlx);

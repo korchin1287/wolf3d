@@ -6,11 +6,23 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 17:10:37 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/21 20:11:10 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/26 15:12:11 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+void	ft_check_size(t_data *data)
+{
+	int	sizex;
+	int	sizey;
+
+	mlx_get_screen_size(data->mlx, &sizex, &sizey);
+	if (data->width > sizex)
+		data->width = sizex;
+	if (data->height > sizey)
+		data->height = sizey;
+}
 
 void	init_data(t_data *data, t_parser *pars)
 {
@@ -77,6 +89,7 @@ void	ft_init_mlx(t_data *data, t_parser *pars)
 	data->width = pars->width;
 	data->height = pars->height;
 	data->mlx = mlx_init();
+	ft_check_size(data);
 	data->win = mlx_new_window(data->mlx, data->width, data->height, "cub3D");
 	data->img = mlx_new_image(data->mlx, data->width, data->height);
 	data->addr = mlx_get_data_addr(data->img, &data->b_p_p, &data->l_l,

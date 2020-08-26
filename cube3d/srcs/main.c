@@ -6,11 +6,16 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 19:29:10 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/21 20:11:14 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/26 19:09:20 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+int		get_t(int trgb)
+{
+	return (trgb & (0xFF << 24));
+}
 
 void	ft_putstr(char *str)
 {
@@ -41,6 +46,10 @@ void	ft_error(int i)
 		ft_putstr("Error\nMap is invalid");
 	if (i == 7)
 		ft_putstr("Error\nMalloc error!");
+	if (i == 8)
+		ft_putstr("Error\nCannot open file\n");
+	if (i == 9)
+		ft_putstr("Error\nNot identificate argum\n");
 	exit(0);
 }
 
@@ -51,15 +60,22 @@ int		main(int argc, char **argv)
 
 	if (argc > 1)
 	{
-		if (!(data = malloc(sizeof(t_data))))
-			ft_error(7);
-		if (!(pars = malloc(sizeof(t_parser))))
-			ft_error(7);
-		ft_make_world_map(pars, argv);
-		gave_space1(pars);
-		ft_check_map_side(pars);
-		ft_init_mlx(data, pars);
-		ft_start(data, pars);
+		if (!(ft_strncmp(".cub", ft_strchr(argv[1], '\0') - 4, 5)))
+		{	
+			if (!(data = malloc(sizeof(t_data))))
+				ft_error(7);
+			if (!(pars = malloc(sizeof(t_parser))))
+				ft_error(7);
+			ft_make_world_map(pars, argv);
+			gave_space1(pars);
+			ft_check_map_side(pars);
+			ft_init_mlx(data, pars);
+			ft_start(data, pars, argc, argv);
+		}
+		else
+			ft_error(9);		
 	}
+	else
+		ft_error(9);	
 	return (0);
 }

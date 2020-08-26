@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 18:28:15 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/21 20:11:17 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/26 16:21:20 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ void	paint_sprite_help(t_data *data, int *i, int *j)
 		/ 8));
 	data->pos2 = data->sprite[data->i]->ptr->addr + data->pos;
 	data->color = *(unsigned int*)data->pos2;
-	my_mlx_pixel_put(data, data->width + data->w_offset + *i,
+	if (!(get_t(data->color)) && data->color > 0)
+	{
+		my_mlx_pixel_put(data, data->width + data->w_offset + *i,
 			data->h_offset + *j, data->color);
+	}
 	(*j)++;
 }
 

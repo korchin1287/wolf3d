@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:40:12 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/21 20:11:49 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/26 14:23:05 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ void	ft_get_color(t_parser *pars, int *r, int *g, int *b)
 	if (ft_isdigit(pars->str[pars->i][pars->j]))
 	{
 		*r = ft_atoi(&pars->str[pars->i][pars->j]);
-		while (pars->str[pars->i][pars->j] != ',')
+		while (pars->str[pars->i][pars->j] != ',' && pars->str[pars->i]
+			[pars->j] != '\0')
 			pars->j++;
 		pars->j++;
 		*g = ft_atoi(&pars->str[pars->i][pars->j]);
-		while (pars->str[pars->i][pars->j] != ',')
+		while (pars->str[pars->i][pars->j] != ',' && pars->str[pars->i]
+			[pars->j] != '\0')
 			pars->j++;
 		pars->j++;
 		*b = ft_atoi(&pars->str[pars->i][pars->j]);
@@ -44,6 +46,9 @@ void	ft_floor_or_roof(t_parser *pars, char c)
 	int	g;
 	int	b;
 
+	r = -1;
+	g = -1;
+	b = -1;
 	pars->j++;
 	while (pars->str[pars->i][pars->j] == ' ')
 		pars->j++;
@@ -51,15 +56,15 @@ void	ft_floor_or_roof(t_parser *pars, char c)
 	if (c == 'F')
 	{
 		pars->color_floor = create_trgb(0, r, g, b);
-		if (pars->color_floor >= 0)
-			pars->f++;
+		pars->f++;
 	}
-	else
+	if (c == 'C')
 	{
 		pars->color_roof = create_trgb(0, r, g, b);
-		if (pars->color_roof > 0)
-			pars->c++;
+		pars->c++;
 	}
+	if (r < 0 || g < 0 || b < 0)
+		ft_error(4);
 }
 
 void	ft_sprite(t_parser *pars)
