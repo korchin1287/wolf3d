@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 19:29:10 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/26 19:09:20 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/26 19:32:46 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		main(int argc, char **argv)
 	if (argc > 1)
 	{
 		if (!(ft_strncmp(".cub", ft_strchr(argv[1], '\0') - 4, 5)))
-		{	
+		{
 			if (!(data = malloc(sizeof(t_data))))
 				ft_error(7);
 			if (!(pars = malloc(sizeof(t_parser))))
@@ -73,9 +73,9 @@ int		main(int argc, char **argv)
 			ft_start(data, pars, argc, argv);
 		}
 		else
-			ft_error(9);		
+			ft_error(9);
 	}
 	else
-		ft_error(9);	
+		ft_error(9);
 	return (0);
 }
