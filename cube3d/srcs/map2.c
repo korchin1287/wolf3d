@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 17:04:09 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/26 17:05:44 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/29 21:30:55 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_check_space(t_parser *pars, int num_str, int len_str)
 
 void	ft_check_map_side(t_parser *pars)
 {
-	int len_str;
+	int	len_str;
 	int	num_str;
 
 	pars->i = 0;

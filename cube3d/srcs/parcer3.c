@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:35:22 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/26 18:43:54 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/29 17:06:42 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ void		ft_e(t_parser *pars)
 		ft_error(7);
 	if ((ft_strlcpy(pars->tex_e, &(pars->str[pars->i][pars->j]), j + 1)) > 0)
 		pars->ea++;
+	while (j > 0)
+	{
+		j--;
+		pars->j++;
+	}
+	ft_check_end(pars);
 }
 
 void		ft_w(t_parser *pars)
@@ -44,6 +50,12 @@ void		ft_w(t_parser *pars)
 		ft_error(7);
 	if ((ft_strlcpy(pars->tex_w, &(pars->str[pars->i][pars->j]), j + 1)) > 0)
 		pars->we++;
+	while (j > 0)
+	{
+		j--;
+		pars->j++;
+	}
+	ft_check_end(pars);
 }
 
 void		ft_s(t_parser *pars)
@@ -61,6 +73,12 @@ void		ft_s(t_parser *pars)
 		ft_error(7);
 	if ((ft_strlcpy(pars->tex_s, &(pars->str[pars->i][pars->j]), j + 1)) > 0)
 		pars->so++;
+	while (j > 0)
+	{
+		j--;
+		pars->j++;
+	}
+	ft_check_end(pars);
 }
 
 void		ft_n(t_parser *pars)
@@ -78,6 +96,12 @@ void		ft_n(t_parser *pars)
 		ft_error(7);
 	if ((ft_strlcpy(pars->tex_n, &(pars->str[pars->i][pars->j]), j + 1)) > 0)
 		pars->no++;
+	while (j > 0)
+	{
+		j--;
+		pars->j++;
+	}
+	ft_check_end(pars);
 }
 
 void		ft_r(t_parser *pars)
@@ -95,6 +119,7 @@ void		ft_r(t_parser *pars)
 	pars->height = ft_atoi(&pars->str[pars->i][pars->j]);
 	while (ft_isdigit(pars->str[pars->i][pars->j]))
 		pars->j++;
+	ft_check_end(pars);
 	if (pars->width > 0 && pars->height > 0)
 		pars->r++;
 	else

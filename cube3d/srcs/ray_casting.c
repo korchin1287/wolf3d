@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 17:27:02 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/26 19:07:54 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/29 22:04:32 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	casting2(t_data *data)
 	data->buffer[data->x] = data->c;
 	data->hitx = data->cx - floor(data->cx + 0.5);
 	data->hity = data->cy - floor(data->cy + 0.5);
-	if (fabs(data->hitx) > fabs(data->hity))
+	if ((data->world_map[(int)(data->cy - 0.005 * sin(data->angle))]
+		[(int)data->cx]) != '1')
 		data->side = 1;
 	else
 		data->side = 0;
@@ -39,10 +40,13 @@ void	casting1(t_data *data)
 		{
 			while (data->world_map[(int)data->cy][(int)data->cx] == '1')
 			{
-				data->c -= 0.0005;
+				data->c -= 0.001;
 				data->cx = data->player_x + data->c * cos(data->angle);
 				data->cy = data->player_y + data->c * sin(data->angle);
 			}
+			data->c += 0.001;
+			data->cx = data->player_x + data->c * cos(data->angle);
+			data->cy = data->player_y + data->c * sin(data->angle);
 			break ;
 		}
 	}
@@ -94,7 +98,7 @@ void	ft_start(t_data *data, t_parser *pars, int argc, char **argv)
 	ft_count_coordinate_sprites(data);
 	ray_casting(data);
 	if (argc == 3 && !(ft_strncmp("--save", argv[2], 7)))
-		create_bmp(data, pars);
+		create_bmp(data);
 	mlx_hook(data->win, 2, 0, &ft_key, data);
 	mlx_hook(data->win, 17, 0, &ft_close, data);
 	mlx_loop(data->mlx);

@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 18:28:15 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/26 16:21:20 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/29 21:31:08 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ void	paint_sprite_help(t_data *data, int *i, int *j)
 	data->pos2 = data->sprite[data->i]->ptr->addr + data->pos;
 	data->color = *(unsigned int*)data->pos2;
 	if (!(get_t(data->color)) && data->color > 0)
-	{
-		my_mlx_pixel_put(data, data->width + data->w_offset + *i,
+		my_mlx_pixel_put(data, data->w_offset + *i,
 			data->h_offset + *j, data->color);
-	}
 	(*j)++;
 }
 
@@ -64,7 +62,7 @@ void	make_sprites(t_data *data)
 		data->sprite_dir -= 2 * M_PI;
 	while (data->sprite_dir - data->player_a < -M_PI)
 		data->sprite_dir += 2 * M_PI;
-	data->sprite_screen_size = 2 * data->height /
+	data->sprite_screen_size = data->height /
 		data->sprite[data->i]->sprite_dist;
 	data->w_offset = (data->sprite_dir - data->player_a) * (data->width) /
 		data->fov + (data->width) / 2 - data->sprite_screen_size / 2;
@@ -108,7 +106,6 @@ void	ft_make_sprites(t_data *data)
 	{
 		make_sprites(data);
 		paint_sprite(data);
-		mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 		(data->i)++;
 	}
 }

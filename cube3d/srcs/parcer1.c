@@ -6,11 +6,21 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:24:23 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/26 17:01:52 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/29 15:48:31 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+void		ft_check_end(t_parser *pars)
+{
+	while (pars->str[pars->i][pars->j] != '\0')
+	{
+		if (pars->str[pars->i][pars->j] != ' ')
+			ft_error(4);
+		pars->j++;
+	}
+}
 
 void		ft_free(t_list **map)
 {

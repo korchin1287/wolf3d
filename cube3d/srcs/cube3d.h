@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 18:43:27 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/26 15:40:24 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/29 21:27:36 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ typedef struct	s_data
 	t_sprite		**sprite;
 }				t_data;
 
-void			create_bmp(t_data *data, t_parser *pars);
+void			create_bmp(t_data *data);
 int				main(int ac, char **av);
 int				get_t(int trgb);
 int				ft_key(int key, t_data *data);
@@ -143,6 +143,7 @@ int				get_t(int trgb);
 char			*ft_addchars(char *line, char c, int count);
 char			**make_map(t_list **map, int size);
 void			ft_check_size(t_data *data);
+void			ft_check_end(t_parser *pars);
 void			ft_start(t_data *data, t_parser *pars, int argc, char **argv);
 void			add_textures(t_data *data, t_parser *pars);
 void			add_sprites(t_data *data, t_parser *pars);

@@ -6,11 +6,25 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:40:12 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/26 14:23:05 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/29 22:08:00 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+void	ft_get_color_help(t_parser *pars, int **r, int **g, int **b)
+{
+	if ((pars->str[pars->i][pars->j] >= '0') && (pars->str[pars->i][pars->j]
+			<= '9'))
+		**b = ft_atoi(&pars->str[pars->i][pars->j]);
+	while (pars->str[pars->i][pars->j] != ' ' && pars->str[pars->i][pars->j]
+			!= '\0')
+		pars->j++;
+	ft_check_end(pars);
+	if ((**g > 255 || **g < 0) || (**r > 255 || **r < 0) || (**b > 255 ||
+		**b < 0))
+		ft_error(3);
+}
 
 int		create_trgb(int t, int r, int g, int b)
 {
@@ -21,20 +35,21 @@ void	ft_get_color(t_parser *pars, int *r, int *g, int *b)
 {
 	if (ft_isdigit(pars->str[pars->i][pars->j]))
 	{
-		*r = ft_atoi(&pars->str[pars->i][pars->j]);
-		while (pars->str[pars->i][pars->j] != ',' && pars->str[pars->i]
-			[pars->j] != '\0')
+		if ((pars->str[pars->i][pars->j] >= '0') && (pars->str[pars->i][pars->j]
+			<= '9'))
+			*r = ft_atoi(&pars->str[pars->i][pars->j]);
+		while (pars->str[pars->i][pars->j] != ',' && pars->str[pars->i][pars->j]
+			!= '\0')
 			pars->j++;
 		pars->j++;
-		*g = ft_atoi(&pars->str[pars->i][pars->j]);
-		while (pars->str[pars->i][pars->j] != ',' && pars->str[pars->i]
-			[pars->j] != '\0')
+		if ((pars->str[pars->i][pars->j] >= '0') && (pars->str[pars->i][pars->j]
+			<= '9'))
+			*g = ft_atoi(&pars->str[pars->i][pars->j]);
+		while (pars->str[pars->i][pars->j] != ',' && pars->str[pars->i][pars->j]
+			!= '\0')
 			pars->j++;
 		pars->j++;
-		*b = ft_atoi(&pars->str[pars->i][pars->j]);
-		if ((*g > 255 || *g < 0) || (*r > 255 || *r < 0) || (*b > 255 ||
-			*b < 0))
-			ft_error(3);
+		ft_get_color_help(pars, &r, &g, &b);
 	}
 	else
 		ft_error(4);
@@ -83,4 +98,10 @@ void	ft_sprite(t_parser *pars)
 	ft_strlcpy(pars->sprite, &(pars->str[pars->i][pars->j]), j + 1);
 	if (ft_isascii(pars->sprite[0]))
 		pars->s++;
+	while (j > 0)
+	{
+		j--;
+		pars->j++;
+	}
+	ft_check_end(pars);
 }

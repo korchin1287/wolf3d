@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 17:10:37 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/26 15:12:11 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/29 19:04:47 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ void	ft_check_size(t_data *data)
 		data->width = sizex;
 	if (data->height > sizey)
 		data->height = sizey;
+	if (data->width % 10 != 0)
+		data->width -= data->width % 10;
+	if (data->height % 10 != 0)
+		data->height -= data->height % 10;
 }
 
 void	init_data(t_data *data, t_parser *pars)

@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 17:06:12 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/21 20:11:30 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/29 18:29:13 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	ft_add_player_coordinates(t_parser *pars, char c)
 	if (c == 'S')
 		pars->player_a = M_PI_2;
 	if (c == 'E')
-		pars->player_a = M_PI;
-	if (c == 'W')
 		pars->player_a = 0;
+	if (c == 'W')
+		pars->player_a = M_PI;
 	pars->is_player++;
 }
 

@@ -6,7 +6,7 @@
 /*   By: nofloren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:31:33 by nofloren          #+#    #+#             */
-/*   Updated: 2020/08/26 19:34:07 by nofloren         ###   ########.fr       */
+/*   Updated: 2020/08/29 21:33:02 by nofloren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ void	parser_2(t_parser *pars)
 	else if (pars->str[pars->i][pars->j] == 'S' && pars->str[pars->i]
 		[pars->j + 1] == ' ')
 		ft_sprite(pars);
-	else if (pars->str[pars->i][pars->j] == 'F' || pars->str[pars->i]
-		[pars->j] == 'C')
+	else if ((pars->str[pars->i][pars->j] == 'F' && pars->str[pars->i]
+		[pars->j + 1] == ' ') || (pars->str[pars->i][pars->j] == 'C' &&
+		pars->str[pars->i][pars->j + 1] == ' '))
 		ft_floor_or_roof(pars, pars->str[pars->i][pars->j]);
 }
 
@@ -84,7 +85,7 @@ void	parser1(t_parser *pars)
 		pars->j = 0;
 		while (pars->str[pars->i][pars->j] != '\0')
 		{
-			while (pars->str[pars->i][pars->j] == ' ')
+			if (pars->str[pars->i][pars->j] == ' ')
 				(pars->j)++;
 			if (is_flag(pars->str[pars->i][pars->j]))
 				parser_2(pars);
