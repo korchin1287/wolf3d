@@ -1,4 +1,4 @@
-NAME = cub3D
+NAME = wolf3D
 
 SRC = srcs/main.c srcs/parcer1.c srcs/parcer2.c \
 		srcs/parcer3.c srcs/parcer4.c srcs/map1.c srcs/map2.c srcs/map3.c \
